@@ -1,21 +1,45 @@
 import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';  
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
-var CompaniesList = [
-    {name:"Field Genie", email:"info@fieldgenie.com",
-    address:"Houston, USA", website:"https://fieldgenie.com/",
-    numberofemployees:1, employees:["Amit Kumar"]},
-    {name:"Oracle", email:"copyright_us@oracle.com",
-    address:"Redwood Shores, CA 94065", website:"https://www.oracle.com/in/index.html",
-    numberofemployees:1, employees:["Amit Meena"]},
-    ]
+
+    const styles = StyleSheet.create({
+        title: { flex: 2, backgroundColor: '#f6f8fa', width:200 },
+        text: { textAlign: 'center', width:300 },
+  
+      });
 
 class ListofCompanies extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          tableHead: ['Name', 'Email', 'Address', 'Website', 'Number of Employees', 'Employees'],
+          tableData: []
+        }
+      }
+
+
+
+
     render(){
+        const state = this.state;
         return (
             <View  style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                <Text>List of Companies</Text>
+                 <Table style={{flexDirection: 'row'}}>
+                    {/* Left Wrapper */}
+                    <TableWrapper style={{width: 150, flexDirection:'row', marginLeft:10}}>
+                    <Col data ={state.tableHead} style={styles.title} heightArr={[30, 30, 30, 30, 30, 30]}/>
+                    </TableWrapper>
+
+                    {/* Right Wrapper */}
+                    <ScrollView horizontal={true}>
+                    <TableWrapper style={{flex:1, borderWidth:1}}>
+                    <Cols data={this.props.navigation.getParam('list')} heightArr={[30, 30, 30, 30, 30, 30]} textStyle={styles.text}/>
+                    </TableWrapper>
+                    </ScrollView>
+                </Table>
             </View>
         );
     }
