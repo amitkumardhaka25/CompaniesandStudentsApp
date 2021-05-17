@@ -5,27 +5,43 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 
 
 
+var StudentsList = [
+    ['Amit Kumar', 'amit.kumar.ece17@itbhu.ac.in', 'Jalalsar, Rajasthan' ,'Field Genie'],
+    ['Amit Meena', 'amit.meena.eee17@itbhu.ac.in', 'Nawalgarh, Rajasthan', 'Oracle']
+  ];
 
 
-    const styles = StyleSheet.create({
-        title: { flex: 2, backgroundColor: '#f6f8fa', width:100 },
-        text: { textAlign: 'center', width:300 },
   
-      });
+   
+  const styles = StyleSheet.create({
+    title: { flex: 2, backgroundColor: '#f6f8fa', width:100 },
+    text: { textAlign: 'center', width:300 },
 
+  });
 
 class ListofStudents extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          tableHead: ['Name', 'Email', 'Address', 'Company'],
-          tableData: []
-        }
-      }
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableHead: ['Name', 'Email', 'Address', 'Company'],
+      tableData: []
+    }
+  }
 
-    render(){
-        const state = this.state;
+
+    
+
+       
+
+render(){
+
+  const state = this.state;
+
+
+  var StudentsList = this.props.navigation.getParam('list');
+
         return (
             <View  style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                  <Table style={{flexDirection: 'row'}}>
@@ -37,13 +53,12 @@ class ListofStudents extends Component {
                     {/* Right Wrapper */}
                     <ScrollView horizontal={true}>
                     <TableWrapper style={{flex:1, borderWidth:1}}>
-                    <Cols data={this.props.navigation.getParam('list')} heightArr={[30, 30, 30, 30, 30]} textStyle={styles.text}/>
+                    <Cols data={StudentsList} heightArr={[30, 30, 30, 30, 30]} textStyle={styles.text}/>
                     </TableWrapper>
                     </ScrollView>
                 </Table>
             </View>
         );
     }
-}
-
-export default ListofStudents
+  }
+  export default ListofStudents;

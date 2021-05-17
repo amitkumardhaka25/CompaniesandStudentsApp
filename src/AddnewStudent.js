@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';  
-import { Button, Picker, StyleSheet, Text, TextInput, View } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
+import ModalDropdown from 'react-native-modal-dropdown';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import LinearLayout from 'react-linear-layout';
 
 const style = {
@@ -30,9 +32,9 @@ const style = {
 
 
 
+
 class AddnewStudent extends Component {
-    constructor (props){
-        super(props);
+   
 
     state={
         name:'',
@@ -49,19 +51,24 @@ class AddnewStudent extends Component {
     handleAddress=(text)=>{
         this.setState({address:text})
     }
+    handleCompany=(text)=>{
+        this.setState({company:text})
+    }
     
     Addnewstudentinthelist=(name, email, address, company)=>{
-        
+        var newList = [name, email, address, company];
+        this.props.navigation.navigate('Main', {newlist:newList});
     }
 
-    const list = this.props.navigation.getParam('list');
-    
-}
 
 
 
     render(){      
         const state = this.state;  
+        const list = this.props.navigation.getParam('list');
+
+        let companyoptions = list.map((item)=><Picker.Item label={item} value={item}></Picker.Item>)
+
         return (
             <View  style={style.container}>
                 <Text>Add new Student</Text>
@@ -84,19 +91,19 @@ class AddnewStudent extends Component {
                     onChangeText={this.handleAddress}></TextInput>
                 </View>
                 <View style={{flexDirection:'row', margin:10, borderWidth:1, borderRadius:5}}>
-                    <Picker style={{ height: 50, width: 200, borderWidth:1 }}
-                    onValueChange={(itemValue, itemIndex) => this.setState({company:itemValue})}>
-                        <Picker.Item label="Select One" value="" />
-                        <Picker.Item label="Field Genie" value="Field Genie" />
-                        <Picker.Item label="Oracle" value="Oracle" />
-                    </Picker>
+                <Picker
+                    style={{ height: 30, width: 200 }}
+                    onValueChange={this.handleCompany}>
+                    <Picker.Item label="Select Here" value="" />
+                    {companyoptions}
+                </Picker>
                 </View>
                 <View>
                     <Button style={style.submit} 
                         title="Submit" 
                         onPress={()=>this.Addnewstudentinthelist(
-                        this.state.name, this.state.email,
-                        this.state.address, this.state.company
+                        state.name, state.email,
+                        state.address, state.company
                     )}></Button>
                 </View>
             </View>

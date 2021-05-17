@@ -53,10 +53,8 @@ class AddnewCompany extends Component {
         this.setState({employees:text})
     }
     Addnewcompanyinthelist=(name, email, address, websitelink, numberofemployees, employees)=>{
-
-        alert('name: '+ name + 'email: ' + email + 'address: ' + address + 'website link: ' + websitelink + 
-        'numberofemployees: ' + numberofemployees + 'employees: ' + employees);
-        this.setState({employees:''})
+        var newList = [name, email, address, websitelink, numberofemployees, employees];
+        this.props.navigation.navigate('Main', {newList:newList});
     }
 
 
