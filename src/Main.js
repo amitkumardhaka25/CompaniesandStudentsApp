@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';  
 import { Button, StyleSheet, Text, View } from 'react-native';
+import email from 'react-native-email'
+
 
 var studentslength=0;
 var newstudentadded=0;
@@ -29,6 +30,15 @@ function updateCompanyStudent(){
           if(CompaniesList[i][0].localeCompare(StudentsList[studentslength-1][3])===0){
               CompaniesList[i][4]=CompaniesList[i][4]+1;
               CompaniesList[i][5]=CompaniesList[i][5]+', '+StudentsList[studentslength-1][0];
+              
+              const to = CompaniesList[i][1] // string or array of email addresses
+                email(to, {
+                // Optional additional arguments
+                //cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
+               // bcc: 'mee@mee.com', // string or array of email addresses
+                subject: StudentsList[studentslength-1][0]+' is added to your company',
+                body: 'New Student Added...'
+                }).catch(console.error)
           }
       } newstudentadded=0;
     }
@@ -43,7 +53,7 @@ function updateCompanyStudent(){
         if(this.props.navigation.getParam('newStudent')!=null  ){
             StudentsList.push(this.props.navigation.getParam('newStudent'));
             newstudentadded = 1;
-            alert(this.props.navigation.getParam('newStudent')[0] + ' is added to the students list !');
+            // alert(this.props.navigation.getParam('newStudent')[0] + ' is added to the students list !');
             updateCompanyStudent();
             this.props.navigation.setParams({
                 'newStudent' : null})
@@ -63,7 +73,7 @@ function updateCompanyStudent(){
 
         return(
             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                <Text style={{marginVertical:10}}>Choose one option :</Text>
+                <Text style={{marginVertical:10, fontSize:20, color:'red'}}>Choose one option :</Text>
                 <View style={{marginVertical:10}}> 
                     <Button title="Add New Student" 
                     onPress={()=>this.props.navigation.navigate('AddnewStudent', {list:Companiesnamelist})}></Button>

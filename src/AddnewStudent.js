@@ -29,6 +29,7 @@ const style = {
 
 }
 
+const emailvalidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
 
@@ -57,8 +58,16 @@ class AddnewStudent extends Component {
     
     Addnewstudentinthelist=(name, email, address, company)=>{
         var newList = [name, email, address, company];
-        this.props.navigation.navigate('Main', {newStudent:newList});
-    }
+        if(name.length<4){
+            alert('Name should have atleast 4 characters !');
+        }else if(emailvalidator.test(email)===false){
+            alert('Enter email in correct format !');
+        }else if(address.length<4){
+            alert('Address should have atleast 4 characters !');
+        }else{
+            this.props.navigation.navigate('Main', {newStudent:newList});
+        }
+}
 
 
 
@@ -71,30 +80,33 @@ class AddnewStudent extends Component {
 
         return (
             <View  style={style.container}>
-                <Text>Add new Student</Text>
-                <View style={{flexDirection:'row', margin:10, }}>
-                    <TextInput editable maxLength={20} 
+                <Text style={{fontSize:20, color:'red'}}>Add new Student</Text>
+                <View style={{ margin:10, }}>
+                <Text style={{marginBottom:5, alignSelf:'center'}}>Enter Student Name</Text>
+                    <TextInput editable
                     style={style.inputname}
                     placeholder="Name" 
                     onChangeText={this.handleName}></TextInput>
                 </View>
-                <View style={{flexDirection:'row', margin:10, }}>
-                    <TextInput editable maxLength={20} 
+                <View style={{ margin:10, }}>
+                <Text style={{marginBottom:5, alignSelf:'center'}}>Enter Email Address</Text>
+                    <TextInput editable  
                     style={style.inputname}
                     placeholder="Email Address"
                     onChangeText={this.handleEmail}></TextInput>
                 </View>
-                <View style={{flexDirection:'row', margin:10}}>
-                    <TextInput editable maxLength={50} 
+                <View style={{ margin:10}}>
+                <Text style={{marginBottom:5, alignSelf:'center'}}>Enter Address</Text>
+                    <TextInput editable
                     style={style.inputname}
                     placeholder="Address"
                     onChangeText={this.handleAddress}></TextInput>
                 </View>
-                <View style={{flexDirection:'row', margin:10, borderWidth:1, borderRadius:5}}>
+                <View style={{ margin:10, borderWidth:1, borderRadius:5}}>
                 <Picker
                     style={{ height: 30, width: 200 }}
                     onValueChange={this.handleCompany}>
-                    <Picker.Item label="Select Here" value="" />
+                    <Picker.Item label="Select Company" value="" />
                     {companyoptions}
                 </Picker>
                 </View>
