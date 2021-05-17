@@ -57,7 +57,7 @@ class AddnewStudent extends Component {
     
     Addnewstudentinthelist=(name, email, address, company)=>{
         var newList = [name, email, address, company];
-        this.props.navigation.navigate('Main', {newlist:newList});
+        this.props.navigation.navigate('Main', {newStudent:newList});
     }
 
 

@@ -54,7 +54,7 @@ class AddnewCompany extends Component {
     }
     Addnewcompanyinthelist=(name, email, address, websitelink, numberofemployees, employees)=>{
         var newList = [name, email, address, websitelink, numberofemployees, employees];
-        this.props.navigation.navigate('Main', {newList:newList});
+        this.props.navigation.navigate('Main', {newCompany:newList});
     }
 
 

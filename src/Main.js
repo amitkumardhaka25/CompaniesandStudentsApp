@@ -22,32 +22,43 @@ var CompaniesList = [['Field Genie', 'info@fieldgenie.com', 'Houston, USA', 'htt
   }
 
   
-  
-    if(newstudentadded===1){
+function updateCompanyStudent(){
+    if(newstudentadded===1){    
     studentslength = StudentsList.length;
       for(var i=0;i<CompaniesList.length;i++){
-          if(CompaniesList[i][0]===StudentsList[studentslength-1][3]){
+          if(CompaniesList[i][0].localeCompare(StudentsList[studentslength-1][3])===0){
               CompaniesList[i][4]=CompaniesList[i][4]+1;
               CompaniesList[i][5]=CompaniesList[i][5]+', '+StudentsList[studentslength-1][0];
           }
       } newstudentadded=0;
     }
+}
 
  class Main extends Component{
 
-    
+   
 
     render(){
-        StudentsList.push(this.props.navigation.getParam('newlist'));
-        if(this.props.navigation.getParam('newlist')!=null){
-            alert('New Student Added !');
-            newstudentadded++;
-        }
+        
+        if(this.props.navigation.getParam('newStudent')!=null  ){
+            StudentsList.push(this.props.navigation.getParam('newStudent'));
+            newstudentadded = 1;
+            alert(this.props.navigation.getParam('newStudent')[0] + ' is added to the students list !');
+            updateCompanyStudent();
+            this.props.navigation.setParams({
+                'newStudent' : null})
+            }
 
-        CompaniesList.push(this.props.navigation.getParam('newList'));
-        if(this.props.navigation.getParam('newList')!=null){
-            Companiesnamelist.push(this.props.navigation.getParam('newList')[0]);
-            alert("New Company Added !");
+        
+        
+        
+        if(this.props.navigation.getParam('newCompany')!=null){
+            CompaniesList.push(this.props.navigation.getParam('newCompany'));
+            Companiesnamelist.push(this.props.navigation.getParam('newCompany')[0]);
+            newcompanyadded=1;
+            alert(this.props.navigation.getParam('newCompany')[0] + ' is added to the companies list !');
+            newstudentadded=0;
+            this.props.navigation.setParams({'newCompany':null});
         }
 
         return(
