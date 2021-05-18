@@ -2,8 +2,9 @@
 
 1. INSTALL EXPO IN YOUR SYSTEM.....
 (npm install -global expo-cli)   --  (global is optional, this will install expo-cli into your computer but you can install expo without global,  but it will install it locally)
-expo init myapp                  --  (it will create a new app into that directory), (choose "blank", it will install everything and will give you perfect setup)
-
+        expo init myapp          --  (it will create a new app into that directory), (choose "blank", it will install everything and will give you perfect setup)
+        
+        If you are installing this application then you need to change AppEntry.js file and in that file instead of App.js you need to change that to route.js because         expo set that file to dafault. 
 
 2. "main": "node_modules/expo/AppEntry.js",   -- (in package.json you will see this, this is the first this that app calls, it will call this file and whatever in there, it will render it)
 
