@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';  
 import { Button, StyleSheet,TextInput, Text, View, Alert, ScrollView } from 'react-native';
-import NumericInput from 'react-native-numeric-input'
+import NumericInput from 'react-native-numeric-input';
 
 
 const style = {
@@ -16,22 +15,24 @@ const style = {
         paddingHorizontal:10   
     },
     submit:{
-        borderBottomLeftRadius:5,
-        borderBottomRightRadius:5,
-        borderTopLeftRadius:5,
-        borderTopRightRadius:5,
-    },
-   
-    
+        borderBottomLeftRadius:20,
+        borderBottomRightRadius:20,
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
+        color:'red',
+        width:20
+    }
 }
+
+
 const emailvalidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 var urlpattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+'((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+'(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+'(\\#[-a-z\\d_]*)?$','i'); // fragment locator
 
 
 class AddnewCompany extends Component {
@@ -138,9 +139,9 @@ class AddnewCompany extends Component {
                     onChangeText={this.handleEmployees}></TextInput>
                 </View>     
                 <View> 
-                    <Button style={style.submit} 
-                    title="Submit" 
-                    onPress={()=>this.Addnewcompanyinthelist(
+                    <Button style={style.submit}
+                        title="Submit" 
+                        onPress={()=>this.Addnewcompanyinthelist(
                         this.state.name, this.state.email,
                         this.state.address, this.state.websitelink,
                         this.state.numberofemployees, this.state.employees

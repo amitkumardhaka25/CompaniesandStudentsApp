@@ -1,23 +1,28 @@
 import React, { Component, useState } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';  
 import { Button,ScrollView ,StyleSheet, Text, View } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import email from 'react-native-email'
 
-
-
-var StudentsList = [
-    ['Amit Kumar', 'amit.kumar.ece17@itbhu.ac.in', 'Jalalsar, Rajasthan' ,'Field Genie'],
-    ['Amit Meena', 'amit.meena.eee17@itbhu.ac.in', 'Nawalgarh, Rajasthan', 'Oracle']
-  ];
-
-
-  
    
   const styles = StyleSheet.create({
-    title: { flex: 2, backgroundColor: '#f6f8fa', width:100 },
+    title: { flex: 2, backgroundColor: '#f6f8fa', width:200 },
     text: { textAlign: 'center', width:300 },
 
   });
+
+  var StudentsList = [];
+
+ 
+
+  function setStudentList(){
+    for(var i=0;i<StudentsList.length;i++){
+      var StudentColumn = StudentsList[i];
+      const to = StudentColumn[1];
+      StudentsList[i][1]=[<Text style={{color:'red'}} onPress={()=>email(to, {
+        subject: 'Enter Subject Here...', body: 'Enter Body Here...'}).catch(console.error)}>{StudentColumn[1]}</Text> ];
+      }  
+}
+
 
 class ListofStudents extends Component {
 
@@ -40,23 +45,27 @@ render(){
   const state = this.state;
 
 
-  var StudentsList = this.props.navigation.getParam('list');
+  StudentsList = this.props.navigation.getParam('list');
+  if(this.props.navigation.getParam('list')!=null){
+    setStudentList();
+  }
+
 
         return (
             <View  style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                 <Table style={{flexDirection: 'row'}}>
+             <Table style={{flexDirection: 'row'}}>
                     {/* Left Wrapper */}
-                    <TableWrapper style={{width: 80, marginLeft:10,flexDirection:'row'}}>
-                    <Col data ={state.tableHead} style={styles.title} heightArr={[30, 30, 30, 30]}/>
+                    <TableWrapper style={{width: 70, flexDirection:'row', marginLeft:10}}>
+                    <Col data ={state.tableHead} style={styles.title} heightArr={[50, 50, 50, 50]}/>
                     </TableWrapper>
 
                     {/* Right Wrapper */}
                     <ScrollView horizontal={true}>
                     <TableWrapper style={{flex:1, borderWidth:1}}>
-                    <Cols data={StudentsList} heightArr={[30, 30, 30, 30, 30]} textStyle={styles.text}/>
+                    <Cols data={StudentsList} heightArr={[50, 50, 50, 50]} textStyle={styles.text}/>
                     </TableWrapper>
                     </ScrollView>
-                </Table>
+                    </Table>
             </View>
         );
     }

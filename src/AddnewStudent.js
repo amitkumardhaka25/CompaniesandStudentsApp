@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';  
 import {Picker} from '@react-native-picker/picker';
-import ModalDropdown from 'react-native-modal-dropdown';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import LinearLayout from 'react-linear-layout';
+import { Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+
 
 const style = {
     container:{
-        flex:1, alignItems:'center', justifyContent:'center'
+        flex:1, alignItems:'center', 
+        justifyContent:'center',
+        marginTop:80
     },
     inputname:{
         borderWidth:1,
@@ -24,10 +24,12 @@ const style = {
         borderBottomRightRadius:5,
         borderTopLeftRadius:5,
         borderTopRightRadius:5,
+        marginTop:10
     }
    
 
 }
+//var validator = require("email-validator");
 
 const emailvalidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -35,7 +37,8 @@ const emailvalidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
 class AddnewStudent extends Component {
-   
+
+    
 
     state={
         name:'',
@@ -81,6 +84,7 @@ class AddnewStudent extends Component {
         return (
             <View  style={style.container}>
                 <Text style={{fontSize:20, color:'red'}}>Add new Student</Text>
+                <ScrollView>
                 <View style={{ margin:10, }}>
                 <Text style={{marginBottom:5, alignSelf:'center'}}>Enter Student Name</Text>
                     <TextInput editable
@@ -110,14 +114,15 @@ class AddnewStudent extends Component {
                     {companyoptions}
                 </Picker>
                 </View>
-                <View>
+                <View style={{marginTop:10}}>
                     <Button style={style.submit} 
                         title="Submit" 
                         onPress={()=>this.Addnewstudentinthelist(
                         state.name, state.email,
                         state.address, state.company
-                    )}></Button>
+                    )}/>
                 </View>
+                </ScrollView>
             </View>
         );
     }
